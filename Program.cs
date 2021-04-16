@@ -12,7 +12,6 @@ namespace GestãoDeEquipamentos.ConsoleApp
         {
             int opcao;
 
-            //if (serie.Length != serie.Distinct().Count()) Console.WriteLine("Série já digitada");
             Inicio:
             Console.Clear();
             Console.WriteLine("Digite a opção: \n 1 Para equipamentos, \n 2 para chamados, \n 3 para sair");
@@ -31,99 +30,40 @@ namespace GestãoDeEquipamentos.ConsoleApp
 
                 while (true)
                 {
-                    Console.Clear();
-                    int opcaoEquipamento;
-                    Console.WriteLine("Digite a opção: \n 1 Para criar \n 2 para editar \n 3 para excluir \n 4 para listar \n 5 para voltar");
-                    opcaoEquipamento = Convert.ToInt32(Console.ReadLine());
+                    int opcao2 = PedirOpcao();
+
                     //criar
-                    if (opcaoEquipamento == 1)
+                    if (opcao2 == 1)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Digite número série: ");
-                        serie[contadorId] = Convert.ToInt32(Console.ReadLine());
-
-                        Console.WriteLine("Digite nome do produto: ");
-                        nome[contadorId] = Console.ReadLine();
-
-                        Console.WriteLine("Digite fabricante do produto: ");
-                        fabricante[contadorId] = Console.ReadLine();
-
-                        Console.WriteLine("Digite preco: ");
-                        preco[contadorId] = Convert.ToDouble(Console.ReadLine());
-
-
-                        Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
-                        data[contadorId] = Convert.ToDateTime(Console.ReadLine());
-
-                        contadorId++;
+                        contadorId = criarEquipamento(data, nome, fabricante, contadorId, preco, serie);
 
                     }
                     //editar
-                    if (opcaoEquipamento == 2)
+                    if (opcao2 == 2)
                     {
-                        Console.Clear();
-
-                        Console.WriteLine("Digite a série do produto para edição: ");
-                        int serieBusca = Convert.ToInt32(Console.ReadLine());
-
-                        for (int i = 0; i < contadorId; i++)
-                        {
-                            if (serie[i] == serieBusca)
-                            {
-                                Console.WriteLine("Digite número série: ");
-                                serie[i] = Convert.ToInt32(Console.ReadLine());
-
-                                Console.WriteLine("Digite nome do produto: ");
-                                nome[i] = Console.ReadLine();
-
-                                Console.WriteLine("Digite fabricante do produto: ");
-                                fabricante[i] = Console.ReadLine();
-
-                                Console.WriteLine("Digite preco: ");
-                                preco[i] = Convert.ToDouble(Console.ReadLine());
-
-                                Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
-                                data[contadorId] = Convert.ToDateTime(Console.ReadLine());
-
-                            }
-                        }
-                        //Console.WriteLine("Valor não encontrado");
+                        editarEquipamento(data, nome, fabricante, contadorId, preco, serie);
                     }
                     //excluir
-                    if (opcaoEquipamento == 3)
+                    if (opcao2 == 3)
                     {
-                        Console.Clear();
+                        excluirEquipamento(data, nome, fabricante, contadorId, preco, serie);
 
-                        Console.WriteLine("Digite a série do produto para edição: ");
-                        int serieBusca = Convert.ToInt32(Console.ReadLine());
-
-                        for (int i = 0; i < contadorId; i++)
-                        {
-                            if (serie[i] == serieBusca)
-                            {
-
-                                serie[i] = 0;
-                                nome[i] = "";
-                                fabricante[i] = "";
-
-                                preco[i] = 0;
-
-
-                                data[i] = Convert.ToDateTime("0000,00,00");
-                            }
-                        }
                     }
                     //listar
-                    if (opcaoEquipamento == 4)
+                    if (opcao2 == 4)
                     {
                         for (int i = 0; i < contadorId; i++)
                         {
-                            Console.WriteLine($"Série:{serie[i]} nome: {nome[i]} fabricante: {fabricante[i]} preco: {preco[i]} data: {data[i]}");
+                            if (nome[i] != null)
+                            {
+                                Console.WriteLine($"Série:{serie[i]} nome: {nome[i]} fabricante: {fabricante[i]} preco: {preco[i]} data: {data[i].ToShortDateString()}");
+                            }
+
                         }
                         Console.ReadLine();
                     }
                     //voltar
-                    else if (opcaoEquipamento == 5)
+                    else if (opcao2 == 5)
                     {
                         goto Inicio;
                     }
@@ -141,104 +81,256 @@ namespace GestãoDeEquipamentos.ConsoleApp
 
                 while (true)
                 {
-                    Console.Clear();
-                    int opcaoChamado;
-                    Console.WriteLine("Digite a opção: \n 1 Para criar \n 2 para editar \n 3 para excluir \n 4 para listar \n 5 para voltar");
-                    opcaoChamado = Convert.ToInt32(Console.ReadLine());
+                    int opcao2 = PedirOpcao();
                     //criar 
-                    if (opcaoChamado == 1)
+                    if (opcao2 == 1)
                     {
-                        Console.Clear();
-
-                        Console.WriteLine("Digite título: ");
-                        nome[contadorId] = Console.ReadLine();
-
-                        Console.WriteLine("Digite descricao do produto: ");
-                        descricao[contadorId] = Console.ReadLine();
-
-                        Console.WriteLine("Digite equipamento: ");
-                        equipamentos[contadorId] = Console.ReadLine();
-
-                        Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
-                        data[contadorId] = Convert.ToDateTime(Console.ReadLine());
-
-                        contadorId++;
-
+                        contadorId = criarChamado(data, nome, descricao, equipamentos, contadorId);
                     }
                     //editar
-                    if (opcaoChamado == 2)
+                    if (opcao2 == 2)
                     {
-                        Console.Clear();
-
-                        Console.WriteLine("Digite a titulo para edição: ");
-                        string titulo = Console.ReadLine();
-
-                        for (int i = 0; i < contadorId; i++)
-                        {
-                            if (nome[i] == titulo)
-                            {
-                                Console.Clear();
-
-                                Console.WriteLine("Digite título: ");
-                                nome[i] = Console.ReadLine();
-
-                                Console.WriteLine("Digite descricao do produto: ");
-                                descricao[i] = Console.ReadLine();
-
-                                Console.WriteLine("Digite equipamento: ");
-                                equipamentos[i] = Console.ReadLine();
-
-                                Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
-                                data[contadorId] = Convert.ToDateTime(Console.ReadLine());
-
-                            }
-                        }
-                        //Console.WriteLine("Valor não encontrado");
+                        editarChamado(data, nome, descricao, equipamentos, contadorId);
                     }
                     //excluir
-                    if (opcaoChamado == 3)
+                    if (opcao2 == 3)
                     {
-                        Console.Clear();
-                        Console.WriteLine("Digite a titulo para EXCLUIR: ");
-                        string titulo = Console.ReadLine();
-
-                        for (int i = 0; i < contadorId; i++)
-                        {
-                            if (nome[i] == titulo)
-                            {
-
-                                nome[i] = "";
-                                descricao[i] = "";
-                                equipamentos[i] = "";
-                                data[i] = Convert.ToDateTime("0000,00,00");
-                            }
-                        }
-                        //Console.WriteLine("Valor não encontrado");
+                        excluirChamado(data, nome, descricao, equipamentos, contadorId);
                     }
                     //listar
-                    if (opcaoChamado == 4)
+                    if (opcao2 == 4)
                     {
-
                         for (int i = 0; i < contadorId; i++)
                         {
-                            string diasDif = (DateTime.Now - data[i]).ToString("dd");
-                            Console.WriteLine($"Título:{nome[i]} descrição: {descricao[i]} equipamento: {equipamentos[i]} dias em aberto: {diasDif}");
+                            if (nome[i] != null)
+                            {
+                                string diasDif = (DateTime.Now - data[i]).ToString("dd");
+                                Console.WriteLine($"Título:{nome[i]} equipamento: {equipamentos[i]} data: {data[i].ToShortDateString()} dias em aberto: {diasDif}");
+                            }
                         }
                         Console.ReadLine();
                     }
                     //voltar
-                    else if (opcaoChamado == 5)
+                    else if (opcao2 == 5)
                     {
                         goto Inicio;
                     }
                 }
             }
-
+            //fecha app
             if (opcao == 3)
             {
                 Environment.Exit(0);
             }
+        }
 
+        private static int PedirOpcao()
+        {
+            Console.Clear();
+            int opcao2;
+            Console.WriteLine("Digite a opção: \n 1 Para criar \n 2 para editar \n 3 para excluir \n 4 para listar \n 5 para voltar");
+            opcao2 = Convert.ToInt32(Console.ReadLine());
+            return opcao2;
+        }
+
+        private static void excluirEquipamento(DateTime[] data, string[] nome, string[] fabricante, int contadorId, double[] preco, int[] serie)
+        {
+            Console.Clear();
+            bool valorEncontrado = false;
+            Console.WriteLine("Digite a série do produto para edição: ");
+            int serieBusca = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < contadorId; i++)
+            {
+                if (serie[i] == serieBusca)
+                {
+                    serie[i] = 0;
+                    nome[i] = null;
+                    fabricante[i] = null;
+                    preco[i] = 0;
+                    data[i] = DateTime.MinValue;
+                    valorEncontrado = true;
+                }
+            }
+            if (valorEncontrado == false)
+            {
+                Console.WriteLine("Valor não encontrado!");
+                Console.ReadLine();
+            }
+        }
+
+        private static void editarEquipamento(DateTime[] data, string[] nome, string[] fabricante, int contadorId, double[] preco, int[] serie)
+        {
+            bool valorEncontrado = false;
+            Console.Clear();
+            Console.WriteLine("Digite a série do produto para edição: ");
+            int serieBusca = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < contadorId; i++)
+            {
+                if (serie[i] == serieBusca)
+                {
+                    Console.WriteLine("Digite número série: ");
+                    serie[i] = Convert.ToInt32(Console.ReadLine());
+
+                    bool nomeValido = false;
+                    string nomeAnalise;
+
+                    do
+                    {
+                        Console.WriteLine("Digite nome do equipamento: ");
+                        nomeAnalise = Console.ReadLine();
+                        if (nomeAnalise.Length < 6)
+                        {
+                            nomeValido = true;
+                            Console.WriteLine("Nome inválido");
+
+                        }
+                        else
+                        {
+                            nomeValido = false;
+                        }
+                    } while (nomeValido);
+
+                    nome[contadorId] = nomeAnalise;
+
+                    Console.WriteLine("Digite fabricante do produto: ");
+                    fabricante[i] = Console.ReadLine();
+
+                    Console.WriteLine("Digite preco: ");
+                    preco[i] = Convert.ToDouble(Console.ReadLine());
+
+                    Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
+                    data[contadorId] = Convert.ToDateTime(Console.ReadLine());
+                    valorEncontrado = true;
+
+                }
+
+            }
+            if (valorEncontrado == false)
+            {
+                Console.WriteLine("Valor não encontrado!");
+                Console.ReadLine();
+            }
+        }
+
+        private static int criarEquipamento(DateTime[] data, string[] nome, string[] fabricante, int contadorId, double[] preco, int[] serie)
+        {
+            Console.Clear();
+            Console.WriteLine("Digite número série: ");
+            serie[contadorId] = Convert.ToInt32(Console.ReadLine());
+
+            bool nomeValido = false;
+            string nomeAnalise;
+
+            do
+            {
+                Console.WriteLine("Digite nome do equipamento: ");
+                nomeAnalise = Console.ReadLine();
+                if (nomeAnalise.Length < 6)
+                {
+                    nomeValido = true;
+                    Console.WriteLine("Nome inválido");
+
+                }
+                else
+                {
+                    nomeValido = false;
+                }
+            } while (nomeValido);
+
+            nome[contadorId] = nomeAnalise;
+
+            Console.WriteLine("Digite fabricante do produto: ");
+            fabricante[contadorId] = Console.ReadLine();
+
+            Console.WriteLine("Digite preco: ");
+            preco[contadorId] = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
+            data[contadorId] = Convert.ToDateTime(Console.ReadLine());
+
+            contadorId++;
+            return contadorId;
+        }
+
+        private static void excluirChamado(DateTime[] data, string[] nome, string[] descricao, string[] equipamentos, int contadorId)
+        {
+            Console.Clear();
+            Console.WriteLine("Digite a titulo para EXCLUIR: ");
+            string titulo = Console.ReadLine();
+            bool valorEncontrado = false;
+            for (int i = 0; i < contadorId; i++)
+            {
+                if (nome[i] == titulo)
+                {
+
+                    nome[i] = null;
+                    descricao[i] = null;
+                    equipamentos[i] = null;
+                    data[i] = DateTime.MinValue;
+                    valorEncontrado = true;
+                }
+            }
+            if (valorEncontrado != true)
+            {
+                Console.WriteLine("Valor não encontrado!");
+                Console.ReadLine();
+            }
+        }
+
+        private static void editarChamado(DateTime[] data, string[] nome, string[] descricao, string[] equipamentos, int contadorId)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Digite a titulo para edição: ");
+            string titulo = Console.ReadLine();
+            bool valorEncontrado = false;
+            for (int i = 0; i < contadorId; i++)
+            {
+                if (nome[i] == titulo)
+                {
+                    Console.Clear();
+
+                    Console.WriteLine("Digite título: ");
+                    nome[i] = Console.ReadLine();
+
+                    Console.WriteLine("Digite descricao do produto: ");
+                    descricao[i] = Console.ReadLine();
+
+                    Console.WriteLine("Digite equipamento: ");
+                    equipamentos[i] = Console.ReadLine();
+
+                    Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
+                    data[i] = Convert.ToDateTime(Console.ReadLine());
+                    valorEncontrado = true;
+                }
+            }
+            if (valorEncontrado == false)
+            {
+                Console.WriteLine("Valor não encontrado!");
+                Console.ReadLine();
+            }
+        }
+
+        private static int criarChamado(DateTime[] data, string[] nome, string[] descricao, string[] equipamentos, int contadorId)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Digite título: ");
+            nome[contadorId] = Console.ReadLine();
+
+            Console.WriteLine("Digite descricao do equipamento: ");
+            descricao[contadorId] = Console.ReadLine();
+
+            Console.WriteLine("Digite equipamento: ");
+            equipamentos[contadorId] = Console.ReadLine();
+
+            Console.WriteLine("Digite data: nesse formato(YYYY,MM,DD)");
+            data[contadorId] = Convert.ToDateTime(Console.ReadLine());
+
+            contadorId++;
+            return contadorId;
         }
     }
 }
